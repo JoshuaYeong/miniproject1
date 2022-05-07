@@ -3,10 +3,10 @@ on:
   release:
     types: [published]
 jobs:
-  deploy-heroku:
+  deploy_to_heroku:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout src
+    - name: Checkout src 
       uses: actions/checkout@v2
     - name: Deploy
       uses: akhileshns/heroku-deploy@v3.12.12 
