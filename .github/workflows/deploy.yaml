@@ -1,17 +1,8 @@
-name: Deploy to Heroku
-on:
-  push:
-    tags:
-    - 'v*'
-    - '!v*-alpha'
-jobs:
+name: Deploy to Heroku after Release
+on: 
   release:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Create a Release
-      uses: elgohr/Github-Release-Action@v4
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+    types: [published]
+jobs:       
   deploy_to_heroku:
     runs-on: ubuntu-latest
     steps:
