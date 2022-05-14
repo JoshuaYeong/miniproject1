@@ -1,18 +1,17 @@
-DROP DATABASE IF EXISTS streaming;
+DROP DATABASE IF EXISTS motionpicture;
 
-CREATE DATABASE streaming;
+CREATE DATABASE motionpicture;
 
-USE streaming;
+USE motionpicture;
 
-CREATE TABLE user (
-    uid int NOT NULL AUTO_INCREMENT,
-    username varchar(128) NOT NULL,
-    email varchar(128) NOT NULL,
+CREATE TABLE users (
+    username varchar(128) UNIQUE NOT NULL,
+    password varchar(128) NOT NULL,
 
-    PRIMARY KEY(uid)
+    PRIMARY KEY(username)
 );
 
-CREATE TABLE show (
+CREATE TABLE shows (
 	sid int NOT NULL AUTO_INCREMENT,
 	name varchar(256) NOT NULL,
     type varchar(16) NOT NULL,
@@ -20,12 +19,12 @@ CREATE TABLE show (
 	year int NOT NULL,
 	image_url varchar(512),
 
-    uid int,
+    username varchar(128),
 
     PRIMARY KEY(sid),
 
-    CONSTRAINT fk_uid
-        FOREIGN KEY(uid)
-            REFERENCES user(uid)
+    CONSTRAINT fk_username
+        FOREIGN KEY(username)
+            REFERENCES users(username)
 );
 

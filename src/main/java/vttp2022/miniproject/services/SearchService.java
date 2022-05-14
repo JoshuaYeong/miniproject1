@@ -32,8 +32,8 @@ public class SearchService {
 
     // Autocomplete Search API /v1/autocomplete-search/
     // 'https://api.watchmode.com/v1/autocomplete-search/?apiKey=YOUR_API_KEY&search_value=Breaking%20bad&search_type=2'
-
-    public List<Show> getTitlesByName(String search) {
+    
+    public List<Show> getTitlesByNameFromDb(String search) {
 
         List<Show> listOfResults = new LinkedList<>();
 

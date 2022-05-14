@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .button1 {
+        width: 300px;
+    }
+    .button2 {
+        width: 100px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <h1>Create a New User Account</h1>
+        </div><p></p>
+        <table style="margin-left:auto;">
+            <div class="container">
+                <form method="POST" action="/newuser">
+                    <div class="form-group">
+                        <label for="name">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" maxlength="32" required><p></p>
+
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" maxlength="32" required><p></p>
+
+                        <button type="submit" class="btn btn-primary btn-lg button1">Create</button><p></p>
+                    </div>
+                        <div><a href="/" class="btn btn-secondary btn-lg button2">Back</a></div>
+                </form>
+            </div>
+
+            <div data-th-if="${message}" data-th-text="${message}" data-th-class="${'alert ' + alertClass}"></div>
+        </table>
+    </div>
+    
+</body>
+</html>

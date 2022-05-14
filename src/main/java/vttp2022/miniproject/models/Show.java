@@ -1,6 +1,6 @@
 package vttp2022.miniproject.models;
 
-import jakarta.json.JsonObject;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class Show {
 
@@ -10,6 +10,7 @@ public class Show {
     private Integer id;
     private Integer year;
     private String imageUrl;
+    private String username;
 
     public Integer getShowId() {
         return showId;
@@ -47,6 +48,12 @@ public class Show {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Override
     public String toString() {
@@ -54,13 +61,13 @@ public class Show {
             .formatted(showId, showName, type, id, year, imageUrl);
     }
 
-    public static Show create(JsonObject o) {
-        final Show show = new Show();
-        show.setShowName(o.getString("name"));
-        show.setType(o.getString("type"));
-        show.setId(o.getInt("id"));
-        show.setYear(o.getInt("year"));
-        show.setImageUrl(o.getString("image_url"));
+    public static Show create(SqlRowSet rs) {
+        Show show = new Show();
+        show.setShowName(rs.getString("name"));
+        show.setType(rs.getString("type"));
+        show.setId(rs.getInt("id"));
+        show.setYear(rs.getInt("year"));
+        show.setImageUrl(rs.getString("image_url"));
         return show;
     }
 

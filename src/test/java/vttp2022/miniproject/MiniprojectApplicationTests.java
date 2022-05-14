@@ -1,6 +1,6 @@
 package vttp2022.miniproject;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import vttp2022.miniproject.models.Show;
 import vttp2022.miniproject.services.SearchService;
+import vttp2022.miniproject.services.UserService;
 
 @SpringBootTest
 class MiniprojectApplicationTests {
@@ -17,12 +18,30 @@ class MiniprojectApplicationTests {
 	@Autowired
 	private SearchService searchSvc;
 
+	@Autowired
+	private UserService userSvc;
+
 	@Test
 	void shouldListFiveResults() {
-		List<Show> shows = searchSvc.getTitlesByName("Breaking Bad");
+
+		List<Show> shows = searchSvc.getTitlesByNameFromDb("Breaking Bad");
 		assertEquals(5, shows.size(), "Number of results");
 		
-		// System.out.println(">>>>>>>> List of shows: " + shows);
+	}
+
+	@Test
+	void shouldVerifyBob() {
+
+		Boolean result = userSvc.verifyUsername("bob", "bob");
+		assertTrue(result);
+
+	}
+
+	@Test
+	void shouldNotVerifyWilma() {
+
+		Boolean result = userSvc.verifyUsername("wilma", "wilma");
+		assertFalse(result);;
 	}
 
 }
