@@ -57,25 +57,25 @@ public class SearchController {
         return mvc;
     }
 
-    @PostMapping(path="/saved")
-    public ModelAndView postFavourites(HttpServletRequest request, HttpSession session) {
+    // @PostMapping(path="/saved")
+    // public ModelAndView postFavourites(HttpServletRequest request, HttpSession session) {
 
-        String username = session.getAttribute("username").toString();
-        String password = session.getAttribute("password").toString();
+    //     String username = session.getAttribute("username").toString();
+    //     String password = session.getAttribute("password").toString();
 
-        String[] flags = request.getParameterValues("flag");
+    //     String[] flags = request.getParameterValues("flag");
 
-        System.out.println(">>>>>>Flags: " + flags);
+    //     System.out.println(">>>>>>Flags: " + flags);
 
-        // try {
-        //     flag = showSvc.saveShow(username, password, show)
-        // } catch(Exception e) {
-        //     e.printStackTrace();
-        // }
+    //     // try {
+    //     //     flag = showSvc.saveShow(username, password, show)
+    //     // } catch(Exception e) {
+    //     //     e.printStackTrace();
+    //     // }
 
-        ModelAndView mvc = new ModelAndView();
+    //     ModelAndView mvc = new ModelAndView();
 
-        return mvc;
+    //     return mvc;
         
     }
 
