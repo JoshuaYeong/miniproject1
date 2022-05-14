@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import vttp2022.miniproject.controllers.SearchController;
 import vttp2022.miniproject.models.Show;
 import vttp2022.miniproject.services.SearchService;
 import vttp2022.miniproject.services.UserService;
@@ -20,6 +21,9 @@ class MiniprojectApplicationTests {
 
 	@Autowired
 	private UserService userSvc;
+
+	@Autowired
+	private SearchController searchCtrl;
 
 	@Test
 	void shouldListFiveResults() {

@@ -77,7 +77,7 @@ public class SearchController {
 
     //     return mvc;
         
-    }
+    // }
 
     @GetMapping(path="/favourites")
     public ModelAndView getFavourites(HttpSession session) {

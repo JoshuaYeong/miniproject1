@@ -2,6 +2,9 @@ name: Compile, test
 on: ["push"]
 env:
   WATCHMODE_API_KEY: ${{ secrets.watchmode_api_key }}
+  SPRING_DATASOURCE_USERNAME: ${{ secrets.spring_datasource_username }}
+  SPRING_DATASOURCE_PASSWORD: ${{ secrets.spring_datasource_password }}
+  SPRING_DATASOURCE_URL: ${{ secrets.spring_datasource_url }}
 jobs: 
   step1:
     runs-on: ubuntu-latest
