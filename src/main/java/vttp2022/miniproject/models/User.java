@@ -2,7 +2,7 @@ package vttp2022.miniproject.models;
 
 public class User {
     private String username;
-    private String email;
+    private String password;
 
     public String getUsername() {
         return username;
@@ -10,16 +10,16 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public static User create() {
-        User user = new User();
-        return user;
-    }
+    // public static User create() {
+    //     User user = new User();
+    //     return user;
+    // }
 
 }

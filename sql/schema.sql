@@ -17,7 +17,7 @@ CREATE TABLE shows (
     type varchar(16) NOT NULL,
     id int,
 	year int NOT NULL,
-	image_url varchar(512),
+	image_url varchar(512) NOT NULL,
 
     username varchar(128),
 
@@ -26,5 +26,6 @@ CREATE TABLE shows (
     CONSTRAINT fk_username
         FOREIGN KEY(username)
             REFERENCES users(username)
+				ON DELETE CASCADE
 );
 

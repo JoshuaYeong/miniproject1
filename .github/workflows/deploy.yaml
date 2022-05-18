@@ -1,4 +1,4 @@
-name: Deploy to Heroku after Release
+name: Status of Pipeline 2
 on: 
   release:
     types: [published]

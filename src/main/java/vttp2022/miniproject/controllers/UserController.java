@@ -38,7 +38,7 @@ public class UserController {
         String username = form.getFirst("username");
         String password = form.getFirst("password");
 
-        Boolean success = false;
+        boolean success = false;
 
         try{
             success = userSvc.createNewUser(username, password);
@@ -52,8 +52,10 @@ public class UserController {
 
         if(!success) {
             mvc.addObject("message", "Error! User not created!");
+            mvc.setStatus(HttpStatus.BAD_REQUEST);
         } else {
             mvc.addObject("message", "New user successfully created. You may proceed to login.");
+            mvc.setStatus(HttpStatus.CREATED);
         }
 
         return mvc;

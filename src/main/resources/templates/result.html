@@ -19,20 +19,21 @@
 <body>
     <div>
         <h1>Hello <span data-th-text="${username}"></span>!</h1>
-        <h2>Search results for "<span data-th-text="${search}"></span>":</h2>
+        <h2>Search results for "<span data-th-text="${search_name}"></span>":</h2>
     </div>
 
     <div>  
     <table>
-        <form formmethod="POST" formaction="/saved">
-        <tr data-th-each="show: ${shows}">
+        <form method="POST" action="/saved">
+        <tr data-th-each="show, state : ${shows}">
             <td><img data-th-src="${show.imageUrl}" height="200px" width="150px" /></td>
             <td>
+                <p data-th-text="${state.index}" hidden></p>
                 <p data-th-text="'Show Name: ' + ${show.showName}"></p>
                 <p data-th-text="'Type: ' + ${show.type}"></p>
                 <p data-th-text="'ID: ' + ${show.id}"></p>
                 <p data-th-text="'Year: ' + ${show.year}"></p>
-                <p><input type="checkbox" name="flag" th:checked="${flag}"></p>
+                <p><input type="checkbox" name="selected" data-th-value="${state.index}"></p>
             </td>
         </tr>
 
@@ -41,6 +42,7 @@
         <tr>
             <td>
                 <button type="submit" class="btn btn-warning btn-block button1">Save to Favourites</button>
+                <!-- <button onclick="getCheckboxValue()" class="btn btn-warning btn-block button1">Save to Favourites</button> -->
             </td>
         </tr>
 

@@ -20,7 +20,7 @@
 
     <div>  
     <table>
-        <tr data-th-each="savedShows: ${savedShows}">
+        <tr data-th-each="savedShows : ${savedShows}">
             <td><img data-th-src="${savedShows.imageUrl}" height="200px" width="150px" /></td>
             <td>
                 <p data-th-text="'Show Name: ' + ${savedShows.showName}"></p>

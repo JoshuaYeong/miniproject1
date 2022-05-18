@@ -14,6 +14,7 @@ public class UserRepository {
     private JdbcTemplate template;
 
     public int countUsersByUsername(String username, String password) {
+        
         SqlRowSet rs = template.queryForRowSet(SQL_COUNT_USERS_BY_USERNAME, username, password);
         if (!rs.next())
             return 0;
@@ -21,7 +22,13 @@ public class UserRepository {
     }
 
     public boolean insertNewUser(String username, String password) {
+        
         int added = template.update(SQL_INSERT_INTO_USERS, username, password);
+        return 1 == added;
+    }
+
+    public boolean deleteUser(String username) {
+        int added = template.update(SQL_DELETE_USER_BY_USERNAME, username);
 
         return 1 == added;
     }

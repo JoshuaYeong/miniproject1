@@ -1,7 +1,7 @@
 # My workflow on Github
 
-[![Compile, test](https://github.com/JoshuaYeong/miniproject1/actions/workflows/main.yaml/badge.svg)](https://github.com/JoshuaYeong/miniproject1/actions/workflows/main.yaml)
+[![Status of Pipeline 1](https://github.com/JoshuaYeong/miniproject1/actions/workflows/main.yaml/badge.svg)](https://github.com/JoshuaYeong/miniproject1/actions/workflows/main.yaml)
 
-[![Deploy to Heroku after Release](https://github.com/JoshuaYeong/miniproject1/actions/workflows/deploy.yaml/badge.svg)](https://github.com/JoshuaYeong/miniproject1/actions/workflows/deploy.yaml/)
+[![Status of Pipeline 2](https://github.com/JoshuaYeong/miniproject1/actions/workflows/deploy.yaml/badge.svg)](https://github.com/JoshuaYeong/miniproject1/actions/workflows/deploy.yaml/)
 
-![Coverage](https://dos3bucket.sgp1.digitaloceanspaces.com/coverage/miniproject1/jacoco.svg)
+![Coverage from Pipeline 1](https://dos3bucket.sgp1.digitaloceanspaces.com/coverage/miniproject1/jacoco.svg)

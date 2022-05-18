@@ -44,21 +44,21 @@ public class SearchService {
             .queryParam("search_type", 2)
             .toUriString();
 
-        System.out.println(">>>>> Autocomplete Search HTTP Request: " + searchUrl);
+        // System.out.println(">>>>> Autocomplete Search HTTP Request: " + searchUrl);
 
         RequestEntity<Void> req = RequestEntity
                 .get(searchUrl)
                 .accept(MediaType.APPLICATION_JSON)
                 .build();
 
-        System.out.println(">>>>> This is the req: " + req);
+        // System.out.println(">>>>> This is the req: " + req);
     
         RestTemplate template = new RestTemplate();
     
         ResponseEntity<String> resp = null;
             
         try {resp = template.exchange(req, String.class);
-            System.out.println(">>>>> This is the resp: " + resp);
+            // System.out.println(">>>>> This is the resp: " + resp);
             } catch(Exception ex) {
                 ex.printStackTrace();
             return listOfResults;

@@ -57,7 +57,7 @@ public class ShowRepository {
     //     return template.batchUpdate(SQL_INSERT_INTO_SHOWS, params);
     // }
 
-    public Boolean insertShow(String username, Show show) {
+    public boolean insertShow(String username, Show show) {
         int added = template.update(SQL_INSERT_INTO_SHOWS, show.getShowName(),
             show.getType(), show.getId(), show.getYear(), show.getImageUrl(), 
             username);

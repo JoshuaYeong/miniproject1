@@ -20,14 +20,14 @@ public class ShowService {
     private UserRepository userRepo;
 
     @Transactional
-    public Boolean saveShow(String username, String password, Show show) {
+    public boolean saveShow(String username, String password, Show show) {
         
         Integer exists = userRepo.countUsersByUsername(username, password);
         if (exists == 0) {
             throw new IllegalArgumentException();
         }
 
-        Boolean success = showRepo.insertShow(username, show);
+        boolean success = showRepo.insertShow(username, show);
         if (success == false) {
             throw new IllegalArgumentException();
         }
