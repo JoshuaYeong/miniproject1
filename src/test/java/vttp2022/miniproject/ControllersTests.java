@@ -149,7 +149,7 @@ public class ControllersTests {
     }
 
     @Test
-	public void shouldReturn401() {
+	public void wrongLoginShouldReturn401() {
 
         MockHttpSession httpSession = new MockHttpSession();
         httpSession.setAttribute("username", "admin");
@@ -230,7 +230,56 @@ public class ControllersTests {
     }
 
     @Test
-    public void favouritesShouldReturn200() {
+	public void savedShouldReturn201AndDeleteFromFavouritesShouldReturn200() {
+
+        MockHttpSession httpSession = new MockHttpSession();
+        httpSession.setAttribute("username", "testuser");
+
+        RequestBuilder reqBuilder = MockMvcRequestBuilders.post("/saved").contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE).param("selected", "1386163").session(httpSession);
+
+        MvcResult mvcResult = null;
+
+        try {
+            mvcResult = mockMvc.perform(reqBuilder).andReturn();
+        } catch(Exception ex) {
+            fail("Mvc invocation failed", ex);
+            return;
+        }
+
+        MockHttpServletResponse httpResp = mvcResult.getResponse();
+
+        try {
+            Integer status = httpResp.getStatus();
+            assertEquals(201, status); 
+        } catch (Exception ex) {
+            fail("Response for login not 201", ex);
+            return;
+        }
+
+        RequestBuilder reqBuilder2 = MockMvcRequestBuilders.post("/favourites").contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE).param("selected", "1386163").session(httpSession);
+
+        MvcResult mvcResult2 = null;
+
+        try {
+            mvcResult2 = mockMvc.perform(reqBuilder2).andReturn();
+        } catch(Exception ex) {
+            fail("Mvc invocation failed", ex);
+            return;
+        }
+
+        MockHttpServletResponse httpResp2 = mvcResult2.getResponse();
+
+        try {
+            Integer status2 = httpResp2.getStatus();
+            assertEquals(200, status2); 
+        } catch (Exception ex) {
+            fail("Response for login not 201", ex);
+            return;
+        }
+    }
+
+    @Test
+    public void getFavouritesShouldReturn200() {
 
         MockHttpSession httpSession = new MockHttpSession();
         httpSession.setAttribute("username", "testuser");

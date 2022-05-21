@@ -22,7 +22,7 @@ import vttp2022.miniproject.services.ShowService;
 
 @Controller
 @RequestMapping
-public class SearchController {
+public class ShowController {
 
     @Autowired
     private SearchService searchSvc;
@@ -42,82 +42,59 @@ public class SearchController {
 
     @GetMapping(path="/search")
     public ModelAndView getSearch(@RequestParam(name="search_name") String search, HttpSession session) {
-
-        // System.out.printf(">>>>> %s\n", search);
-
+        
         System.out.println(">>>>> Search Term: " + search);
 
-        List<Show> shows = searchSvc.getTitlesByNameFromDb(search);
         String username = (String) session.getAttribute("username");
 
         ModelAndView mvc = new ModelAndView();
+
+        try {
+            List<Show> shows = searchSvc.getTitlesByNameFromDb(search);
+            mvc.addObject("shows", shows);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         mvc.setViewName("result");
         mvc.setStatus(HttpStatus.OK);
         mvc.addObject("username", username.substring(0, 1).toUpperCase() + username.substring(1));
         mvc.addObject("search_name", search);
-        mvc.addObject("shows", shows);
 
         return mvc;
     }
 
     @PostMapping(path="/saved", consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView postFavourites(@RequestBody MultiValueMap<String, String> form, HttpSession session) {
+    public ModelAndView postSaved(@RequestBody MultiValueMap<String, String> form, HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+
+        List<String> listOfIds = form.get("selected");
+
+        System.out.println(">>>>> listOfIds: " + listOfIds);
+
+        if (!listOfIds.isEmpty()) {
+            for (int i=0; i<listOfIds.size(); i++) {
+                Integer titleId = Integer.parseInt(listOfIds.get(i));
+                Show show = searchSvc.getDetailsByIdFromDb(titleId);
+
+                try {
+                    boolean saved = showSvc.saveShow(username, show);
+                    System.out.println(">>>>> saved: " + saved);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         ModelAndView mvc = new ModelAndView();
 
-        String username = (String) session.getAttribute("username");
-        String password = (String) session.getAttribute("password");
-
-        List<String> list = form.get("selected");
-
-        System.out.println(">>>>>> list: " + list);
-
-        if (!list.isEmpty()) {
-                Show show = new Show();
-                show.setShowName(form.getFirst("${show.showName}"));
-                show.setType(form.getFirst("${show.type}"));
-                show.setId(Integer.valueOf(form.getFirst("${show.id}")));
-                show.setYear(Integer.valueOf(form.getFirst("${show.year}")));
-                show.setImageUrl(form.getFirst("${show.imageUrl}"));
-                
-                try {
-                    boolean success = showSvc.saveShow(username, password, show);
-                    System.out.println(">>>>>> success: " +success);
-                } catch (Exception e) {
-                    e.getMessage();
-                }
-        }
-
-        // List<Show> shows = searchSvc.getTitlesByNameFromDb(search);
-
-        // int showIndex = Integer.parseInt(form.getFirst("showIndex"));
-
-        // Show show = shows.get(showIndex);
-
-        // boolean saveFavourites = false;
-
-        // if (form.containsKey("selected")) {
-        //     saveFavourites = Boolean.valueOf(form.getFirst("selected"));
-        //     try {
-        //         showSvc.saveShow(username, password, show);
-        //     } catch (Exception e) {
-        //         e.getMessage();
-        //     }
-        // }
-
-        // try {
-        //     flag = showSvc.saveShow(username, password, show)
-        // } catch(Exception e) {
-        //     e.printStackTrace();
-        // }
-
         mvc.setViewName("verified");
         mvc.addObject("username", username.substring(0, 1).toUpperCase() + username.substring(1));
+        mvc.addObject("message", "Show(s) saved. You may find them under 'Saved Favourites'.");
         mvc.setStatus(HttpStatus.CREATED);
 
         return mvc;
-        
     }
 
     @GetMapping(path="/favourites")
@@ -125,7 +102,7 @@ public class SearchController {
 
         String username = (String) session.getAttribute("username");
 
-        List<Show> savedShows = showSvc.getShowsByUsername(username);
+        List<Show> savedShows = showSvc.getAllShowsByUsername(username);
 
         ModelAndView mvc = new ModelAndView();
 
@@ -134,7 +111,36 @@ public class SearchController {
         mvc.addObject("savedShows", savedShows);
 
         return mvc;
+    }
 
+    @PostMapping(path="/favourites", consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView postFavourites(@RequestBody MultiValueMap<String, String> form, HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+
+        ModelAndView mvc = new ModelAndView();
+
+        List<String> listOfIds = form.get("selected");
+
+        System.out.println(">>>>> listOfIds: " + listOfIds);
+
+        if (!listOfIds.isEmpty()) {
+            for (int i=0; i<listOfIds.size(); i++) {
+                Integer titleId = Integer.parseInt(listOfIds.get(i));
+
+                try {
+                    boolean removed = showSvc.deleteShow(username, titleId);
+                    System.out.println(">>>>> removed: " + removed);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } 
+
+        mvc.setViewName("verified");
+        mvc.addObject("username", username.substring(0, 1).toUpperCase() + username.substring(1));
+
+        return mvc;
     }
 
 }

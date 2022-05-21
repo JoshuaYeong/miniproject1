@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .button1 {
+        width: 100%;
+    }
+    .button2 {
         width: 15%;
     }
 </style>
@@ -20,6 +23,7 @@
 
     <div>  
     <table>
+        <form method="POST" action="/favourites">
         <tr data-th-each="savedShows : ${savedShows}">
             <td><img data-th-src="${savedShows.imageUrl}" height="200px" width="150px" /></td>
             <td>
@@ -27,16 +31,25 @@
                 <p data-th-text="'Type: ' + ${savedShows.type}"></p>
                 <p data-th-text="'ID: ' + ${savedShows.id}"></p>
                 <p data-th-text="'Year: ' + ${savedShows.year}"></p>
+                <p><input type="checkbox" name="selected" data-th-value="${savedShows.id}"></p>
             </td>
         </tr>
 
         <tr><td><p></p></td></tr>
 
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-danger btn-block button1">Remove from Favourites</button>
+            </td>
+        </tr>
+
         </form>
     </table>
     </div>
 
-        <a href="/searchpage" class="btn btn-warning btn-block button1">Back To Search Page</a>
+    <P></P>
+
+        <a href="/searchpage" class="btn btn-warning btn-block button2">Back To Search Page</a>
 
 </body>
 </html>

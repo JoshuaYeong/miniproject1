@@ -22,6 +22,8 @@
             <h1>Hello <span data-th-text="${username}"></span>!</h1>
 
             <h2 data-th-if="${sucMessage}" data-th-text="${sucMessage}" data-th-class="${'alert ' + alertClass}"></h2>
+
+            <h4 data-th-if="${message}" data-th-text="${message}" data-th-class="${'alert ' + alertClass}"></h4>
         </div>
 
         <div>
@@ -47,6 +49,7 @@
                 </button>
             </form>
         </div>
+
     </div>
 
 </body>

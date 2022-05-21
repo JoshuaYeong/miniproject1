@@ -25,13 +25,10 @@ public class SearchService {
 
     private static final String URL = "https://api.watchmode.com/v1/%s";
     private static final String AUTOCOMPLETE = "/autocomplete-search/";
+    private static final String DETAILS = "/title/%d/details/";
 
-    // WATCHMODE_API_KEY=rR2gQ4bW3NqFl1R4oiRHX7RGxxnZP0lVys9VnmzA
     @Value("${watchmode.api.key}")
     private String apiKey;
-
-    // Autocomplete Search API /v1/autocomplete-search/
-    // 'https://api.watchmode.com/v1/autocomplete-search/?apiKey=YOUR_API_KEY&search_value=Breaking%20bad&search_type=2'
     
     public List<Show> getTitlesByNameFromDb(String search) {
 
@@ -43,8 +40,6 @@ public class SearchService {
             .queryParam("search_value", search.replaceAll(" ", "+"))
             .queryParam("search_type", 2)
             .toUriString();
-
-        // System.out.println(">>>>> Autocomplete Search HTTP Request: " + searchUrl);
 
         RequestEntity<Void> req = RequestEntity
                 .get(searchUrl)
@@ -76,7 +71,7 @@ public class SearchService {
                 JsonObject arrObject = jArray.getJsonObject(i);
                 String showName = arrObject.getString("name");
                 String type = arrObject.getString("type");
-                Integer id = arrObject.getInt("id");
+                Integer id = (Integer) arrObject.getInt("id");
                 Integer year = arrObject.getInt("year");
                 String imageUrl = arrObject.getString("image_url");
 
@@ -92,21 +87,54 @@ public class SearchService {
         }
         return listOfResults;
     }
-    
-    // {
-    //     "results": [
-    //       {
-    //         "name": "Breaking Bad",
-    //         "relevance": 445.23,
-    //         "type": "tv_series",
-    //         "id": 3173903,
-    //         "year": 2008,
-    //         "result_type": "title",
-    //         "tmdb_id": 1396,
-    //         "tmdb_type": "tv",
-    //         "image_url": "https://cdn.watchmode.com/posters/03173903_poster_w185.jpg"
-    //       }
-    //     ]
-    // }
 
+    public Show getDetailsByIdFromDb(Integer titleId) {
+
+        Show showDetails = new Show();
+
+        String searchUrl = UriComponentsBuilder
+        .fromUriString(URL.formatted(DETAILS.formatted(titleId)))
+        .queryParam("apiKey", apiKey)
+        .toUriString();
+
+        RequestEntity<Void> req = RequestEntity
+            .get(searchUrl)
+            .accept(MediaType.APPLICATION_JSON)
+            .build();
+
+        // System.out.println(">>>>> This is the req: " + req);
+    
+        RestTemplate template = new RestTemplate();
+    
+        ResponseEntity<String> resp = null;
+            
+        try {resp = template.exchange(req, String.class);
+            // System.out.println(">>>>> This is the resp: " + resp);
+            } catch(Exception ex) {
+                ex.printStackTrace();
+            return showDetails;
+            }
+        
+        try (InputStream is = new ByteArrayInputStream(
+            resp.getBody().getBytes())) {
+                JsonReader reader = Json.createReader(is);
+                JsonObject data = reader.readObject();
+
+                String title = data.getString("title");
+                String type = data.getString("type");
+                Integer id = data.getInt("id");
+                Integer year = data.getInt("year");
+                String poster = data.getString("poster");
+
+                showDetails.setShowName(title);
+                showDetails.setType(type);
+                showDetails.setId(id);
+                showDetails.setYear(year);
+                showDetails.setImageUrl(poster);
+
+        } catch(IOException ex) {
+            System.err.printf("+++ error: %s\n", ex.getMessage());
+        }
+        return showDetails;
+    }
 }

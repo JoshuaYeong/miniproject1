@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import vttp2022.miniproject.models.Show;
+import vttp2022.miniproject.models.User;
 import vttp2022.miniproject.services.SearchService;
 import vttp2022.miniproject.services.ShowService;
 import vttp2022.miniproject.services.UserService;
@@ -60,7 +61,11 @@ public class ServicesTests {
 	@Test
 	public void shouldNotVerifyWilma() {
 
-		boolean result = userSvc.verifyUsername("wilma", "wilma");
+		User user = new User();
+		user.setUsername("wilma");
+		user.setPassword("wilma");
+
+		boolean result = userSvc.verifyUsername(user.getUsername(), user.getPassword());
 		assertFalse(result);
 	}
 
@@ -72,10 +77,10 @@ public class ServicesTests {
 	}
 
 	@Test
-    public void shouldEqualOne() {
+    public void shouldEqualsOneAndAbleToDelete() {
 
 		final String username = "testuser";
-		final String password = "testuser";
+		// final String password = "testuser";
 
 		testShow = new Show();
 		testShow.setShowName("The Dark Knight Rises");
@@ -84,14 +89,28 @@ public class ServicesTests {
 		testShow.setYear(2012);
 		testShow.setImageUrl("https://cdn.watchmode.com/posters/01386163_poster_w185.jpg");
 
-		// boolean success = showSvc.saveShow(username, password, testShow);
-		// System.out.println(">>>>>Success: " + success);
+        showSvc.saveShow(username, testShow);
 
-        showSvc.saveShow(username, password, testShow);
-
-		List<Show> results = showSvc.getShowsByUsername(username);
-		// System.out.println(">>>>>Results: " + results);
+		List<Show> results = showSvc.getAllShowsByUsername(username);
+		// System.out.println(">>>>> Results: " + results);
 		assertEquals(1, results.size());
+
+		Integer titleId = testShow.getId();
+
+		boolean delete = showSvc.deleteShow(username, titleId);
+		assertTrue(delete);
     }
+
+	@Test
+	public void shouldRetrieveShowName() {
+
+		Integer titleId = 1386163;
+
+		Show showDetails = searchSvc.getDetailsByIdFromDb(titleId);
+		assertEquals(showDetails.getShowName(), "The Dark Knight Rises");
+		assertEquals(showDetails.getType(), "movie");
+		// System.out.println(showDetails.getShowName());
+		// System.out.println(showDetails.getType());
+	}
     
 }

@@ -15,7 +15,7 @@ CREATE TABLE shows (
 	sid int NOT NULL AUTO_INCREMENT,
 	name varchar(256) NOT NULL,
     type varchar(16) NOT NULL,
-    id int,
+    id int NOT NULL,
 	year int NOT NULL,
 	image_url varchar(512) NOT NULL,
 

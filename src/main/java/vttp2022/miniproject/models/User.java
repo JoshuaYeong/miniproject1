@@ -17,9 +17,4 @@ public class User {
         this.password = password;
     }
 
-    // public static User create() {
-    //     User user = new User();
-    //     return user;
-    // }
-
 }

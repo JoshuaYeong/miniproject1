@@ -20,23 +20,45 @@ public class ShowService {
     private UserRepository userRepo;
 
     @Transactional
-    public boolean saveShow(String username, String password, Show show) {
-        
-        Integer exists = userRepo.countUsersByUsername(username, password);
-        if (exists == 0) {
-            throw new IllegalArgumentException();
+    public boolean saveShow(String username, Show show) {
+
+        boolean exists = userRepo.selectUserByUsername(username);
+        if (exists == false) {
+            throw new IllegalArgumentException("Username not found");
+        }
+
+        boolean exist = showRepo.selectShowByUsername(username);
+        if (exist == true) {
+            throw new IllegalArgumentException("Show already exist");
         }
 
         boolean success = showRepo.insertShow(username, show);
         if (success == false) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Insert show failed");
         }
 
         return true;
     }
 
-    public List<Show> getShowsByUsername(String username) {
+    public List<Show> getAllShowsByUsername(String username) {
+
         return showRepo.selectAllShowsByUsername(username);
+    }
+
+    @Transactional
+    public boolean deleteShow(String username, Integer titleId) { 
+
+        boolean exists = userRepo.selectUserByUsername(username);
+        if (exists == false) {
+            throw new IllegalArgumentException("Username not found");
+        }
+
+        boolean remove = showRepo.deleteShow(username, titleId);
+        if (remove == false) {
+            throw new IllegalArgumentException("Delete show not successful");
+        }
+
+        return true;
     }
     
 }

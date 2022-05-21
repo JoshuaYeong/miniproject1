@@ -13,7 +13,7 @@ public class UserRepository {
     @Autowired
     private JdbcTemplate template;
 
-    public int countUsersByUsername(String username, String password) {
+    public Integer countUsersByUsername(String username, String password) {
         
         SqlRowSet rs = template.queryForRowSet(SQL_COUNT_USERS_BY_USERNAME, username, password);
         if (!rs.next())
@@ -27,9 +27,17 @@ public class UserRepository {
         return 1 == added;
     }
 
-    public boolean deleteUser(String username) {
-        int added = template.update(SQL_DELETE_USER_BY_USERNAME, username);
+    public boolean selectUserByUsername(String username) {
+        
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_USER_BY_USERNAME, username);
+        if (!rs.next())
+            return false;
+        return true;
+    }
 
+    public boolean deleteUser(String username) {
+
+        int added = template.update(SQL_DELETE_USER_BY_USERNAME, username);
         return 1 == added;
     }
 }
