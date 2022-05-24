@@ -43,7 +43,7 @@ public class ShowController {
     @GetMapping(path="/search")
     public ModelAndView getSearch(@RequestParam(name="search_name") String search, HttpSession session) {
         
-        System.out.println(">>>>> Search Term: " + search);
+        // System.out.println(">>>>> Search Term: " + search);
 
         String username = (String) session.getAttribute("username");
 
@@ -76,9 +76,9 @@ public class ShowController {
         if (!listOfIds.isEmpty()) {
             for (int i=0; i<listOfIds.size(); i++) {
                 Integer titleId = Integer.parseInt(listOfIds.get(i));
-                Show show = searchSvc.getDetailsByIdFromDb(titleId);
 
                 try {
+                    Show show = searchSvc.getDetailsByIdFromDb(titleId);
                     boolean saved = showSvc.saveShow(username, show);
                     System.out.println(">>>>> saved: " + saved);
                 } catch (Exception e) {

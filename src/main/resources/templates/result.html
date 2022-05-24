@@ -9,51 +9,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .button1 {
-        width: 100%;
+        width: 200px;
     }
     .button2 {
-        width: 50%;
+        width: 120px;
+    }
+    h1 {
+        font-family: Helvetica, Georgia, 'Times New Roman';
+    }
+    h2 {
+        font-family: Tahoma, Verdana, sans-serif;
+    }
+    p {
+        font-family: Arial, Helvetica, sans-serif;
     }
 </style>
 </head>
 <body>
-    <div>
+    <div class="container-fluid">
+        <div class="row mt-3">
         <h1>Hello <span data-th-text="${username}"></span>!</h1>
         <h2>Search results for "<span data-th-text="${search_name}"></span>":</h2>
-    </div>
 
-    <div>  
-    <table>
         <form method="POST" action="/saved">
-        <tr data-th-each="show : ${shows}">
-            <td><img data-th-src="${show.imageUrl}" height="200px" width="150px" /></td>
-            <td>
-                <p data-th-text="'Show Name: ' + ${show.showName}"></p>
-                <p data-th-text="'Type: ' + ${show.type}"></p>
-                <p data-th-text="'ID: ' + ${show.id}"></p>
-                <p data-th-text="'Year: ' + ${show.year}"></p>
-                <p><input type="checkbox" name="selected" data-th-value="${show.id}"></p>
-            </td>
-        </tr>
+            <table>
+                <tr data-th-each="show : ${shows}">
+                    <td><img data-th-src="${show.imageUrl}" height="270px" width="190px" /></td>
+                    <td>
+                        <p style="font-weight:bold;" data-th-text="'Show Name: ' + ${show.showName}"></p>
+                        <p data-th-text="'Type: ' + ${show.type}"></p>
+                        <p data-th-text="'ID: ' + ${show.id}"></p>
+                        <p data-th-text="'Year: ' + ${show.year}"></p>
+                        <p><input type="checkbox" name="selected" id="selected" data-th-value="${show.id}"></p>
+                    </td>
+                </tr>
 
         <tr><td><p></p></td></tr>
 
-        <tr>
-            <td>
-                <button type="submit" class="btn btn-warning btn-block button1">Save to Favourites</button>
-            </td>
-        </tr>
+        <td></td>
+
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-warning btn-block button1">Save to Favourites</button>
+                    </td>
+                </tr>
 
         <tr><td><p></p></td></tr>
 
-        <tr>
-            <td>
-            <a href="/searchpage" class="btn btn-secondary btn-block button2">Back</a>
-            </td>
-        </tr>
+                <tr>
+                    <td>
+                    <a href="/searchpage" class="btn btn-secondary btn-block button2">Back</a>
+                    </td>
+                </tr>
+            </table>
         </form>
-    </table>
     </div>
+</div>
 
 </body>
 </html>

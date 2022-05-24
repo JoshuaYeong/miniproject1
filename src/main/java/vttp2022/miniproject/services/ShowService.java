@@ -27,7 +27,7 @@ public class ShowService {
             throw new IllegalArgumentException("Username not found");
         }
 
-        boolean exist = showRepo.selectShowByUsername(username);
+        boolean exist = showRepo.selectShowByUsernameAndId(username, show.getId());
         if (exist == true) {
             throw new IllegalArgumentException("Show already exist");
         }

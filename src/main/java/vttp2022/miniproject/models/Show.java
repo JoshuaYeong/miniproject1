@@ -4,7 +4,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class Show {
 
-    private Integer showId;
+    private Integer sid;
     private String showName;
     private String type;
     private Integer id;
@@ -12,11 +12,11 @@ public class Show {
     private String imageUrl;
     private String username;
 
-    public Integer getShowId() {
-        return showId;
+    public Integer getSid() {
+        return sid;
     }
-    public void setShowId(Integer showId) {
-        this.showId = showId;
+    public void setSid(Integer sid) {
+        this.sid = sid;
     }
     public String getShowName() {
         return showName;
@@ -57,8 +57,8 @@ public class Show {
 
     @Override
     public String toString() {
-        return "showId: %d, showName: %s, type: %s, id: %d, year: %d, imageUrl: %s"
-            .formatted(showId, showName, type, id, year, imageUrl);
+        return "sid: %d, showName: %s, type: %s, id: %d, year: %d, imageUrl: %s"
+            .formatted(sid, showName, type, id, year, imageUrl);
     }
 
     public static Show create(SqlRowSet rs) {

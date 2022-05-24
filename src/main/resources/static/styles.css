@@ -1,0 +1,18 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .container {
+    position: relative;
+    text-align: center;
+  }
+  .bg-image {
+    opacity: 1;
+  }
+  .form-table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+  }

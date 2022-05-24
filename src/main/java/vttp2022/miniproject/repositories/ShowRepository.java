@@ -39,9 +39,9 @@ public class ShowRepository {
         return shows;
     }
 
-    public boolean selectShowByUsername(String username) {
+    public boolean selectShowByUsernameAndId(String username, Integer titleId) {
         
-        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_SHOW_BY_USERNAME, username);
+        SqlRowSet rs = template.queryForRowSet(SQL_SELECT_SHOW_BY_USERNAME_AND_ID, username, titleId);
         if (!rs.next())
             return false;
         return true;
